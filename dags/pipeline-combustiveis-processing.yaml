@@ -1,0 +1,54 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: "combustiveis-processing"
+  namespace: processing
+spec:
+  hadoopConf:
+    "fs.gs.auth.service.account.enable": "true"
+    "fs.gs.auth.service.account.json.keyfile": "/mnt/secrets/key.json"
+    "fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem"
+    "fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
+  timeToLiveSeconds: 180
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  image: "almirbf/spark-operator:3.1.1"
+  imagePullPolicy: Always
+  mainApplicationFile: local:///src/app/processing_job.py
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  driver:
+    volumeMounts:
+      - name: ivy
+        mountPath: /tmp
+    secrets:
+      - name: "gcp-credentials"
+        path: "/mnt/secrets"
+        secretType: GCPServiceAccount
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "500m"    
+    memory: "1024m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+  executor:
+    volumeMounts:
+      - name: ivy
+        mountPath: /tmp
+    secrets:
+      - name: "gcp-credentials"
+        path: "/mnt/secrets"
+        secretType: GCPServiceAccount
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "1000m"    
+    instances: 2
+    memory: "1024m"
+    labels:
+      version: 3.1.1
+  volumes:
+    - name: ivy
+      emptyDir: { }

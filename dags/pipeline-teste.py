@@ -26,7 +26,7 @@ with DAG(
 ) as dag:
 # [END instantiate_dag]
 
-    ingestion = KubernetesPodOperator(
+    teste = KubernetesPodOperator(
           task_id="teste",
           name="pipeline-teste",
           is_delete_operator_pod=True,

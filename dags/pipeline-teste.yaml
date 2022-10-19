@@ -1,32 +1,54 @@
-apiVersion: v1
-kind: Pod
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
 metadata:
-  name: "pipeline-teste"
+  name: "combustiveis-processing"
+  namespace: processing
 spec:
-  containers:
-  - name: python-container
-    image: almirbf/spark-operator:3.1.1
-    imagePullPolicy: Always
-    securityContext:
-      allowPrivilegeEscalation: false
-      runAsUser: 0
-    resources:
-      requests:
-        memory: "3Gi"
-        cpu: "500m"
-      limits:
-        memory: "4Gi"
-        cpu: "1000m"
-    command: ["bash", "-c", "python3 -u /src/app/teste.py"]
+  hadoopConf:
+    "fs.gs.auth.service.account.enable": "true"
+    "fs.gs.auth.service.account.json.keyfile": "/mnt/secrets/key.json"
+    "fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem"
+    "fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
+  timeToLiveSeconds: 180
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  image: "almirbf/spark-operator:3.1.1"
+  imagePullPolicy: Always
+  mainApplicationFile: https://raw.githubusercontent.com/almirferr/pipeline-combustiveis/main/teste.py
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  driver:
     volumeMounts:
-    - name: credentials
-      mountPath: "/mnt/secrets"
-      readOnly: true
-    env:
-    - name: GOOGLE_APPLICATION_CREDENTIALS
-      value: "/mnt/secrets/key.json"
+      - name: ivy
+        mountPath: /tmp
+    secrets:
+      - name: "gcp-credentials"
+        path: "/mnt/secrets"
+        secretType: GCPServiceAccount
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "500m"    
+    memory: "1024m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+  executor:
+    volumeMounts:
+      - name: ivy
+        mountPath: /tmp
+    secrets:
+      - name: "gcp-credentials"
+        path: "/mnt/secrets"
+        secretType: GCPServiceAccount
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "1000m"    
+    instances: 2
+    memory: "1024m"
+    labels:
+      version: 3.1.1
   volumes:
-  - name: credentials
-    secret:
-      secretName: gcp-credentials
-      optional: false 
+    - name: ivy
+      emptyDir: { }

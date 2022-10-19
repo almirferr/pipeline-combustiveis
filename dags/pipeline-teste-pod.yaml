@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "pipeline-teste"
+spec:
+  containers:
+  - name: python-container
+    image: almirbf/spark-operator:3.1.1
+    imagePullPolicy: Always
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 0
+    resources:
+      requests:
+        memory: "3Gi"
+        cpu: "500m"
+      limits:
+        memory: "4Gi"
+        cpu: "1000m"
+    command: ["bash", "-c", "python3 -u /src/app/teste.py"]
+    volumeMounts:
+    - name: credentials
+      mountPath: "/mnt/secrets"
+      readOnly: true
+    env:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: "/mnt/secrets/key.json"
+  volumes:
+  - name: credentials
+    secret:
+      secretName: gcp-credentials
+      optional: false 

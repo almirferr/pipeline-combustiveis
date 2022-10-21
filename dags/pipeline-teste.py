@@ -1,4 +1,3 @@
-
 from airflow.models import Variable
 from os import getenv, path
 from datetime import datetime
@@ -39,7 +38,6 @@ with DAG(
             "SOURCE_URLS" :  Variable.get("combustiveis_source_urls")
           }
       )
-
 
     # [START task_sequence]
     teste

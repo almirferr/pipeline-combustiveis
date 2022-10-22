@@ -15,7 +15,7 @@ print("*****************")
 conf = SparkConf()
 conf.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
 conf.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
-conf.set("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com")
+conf.set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
 
 # apply config
 sc = SparkContext(conf=conf).getOrCreate()

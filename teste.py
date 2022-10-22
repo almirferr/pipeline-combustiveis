@@ -26,5 +26,17 @@ if __name__ == "__main__":
     print("*****************")
     print("Iniciando!!!")
     print("*****************")
+    
+    df = (
+        spark
+        .read
+        .format("csv")
+        .options(header='true', inferSchema='true', delimiter=';')
+        .load("s3://dl-landing-zone-539445819059/teste/")
+    )
+    
+    df.printSchema()
+    
+    print("finalizado!")
 
-print("finalizado!")
+spark.stop()

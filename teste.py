@@ -40,7 +40,8 @@ if __name__ == "__main__":
 
     print("reading")
     
-    df = spark.read.csv("s3a://dl-landing-zone-539445819059/titanic/titanic.csv")
+    df = spark.read.csv("s3://dl-landing-zone-539445819059/titanic/titanic.csv")
+
     df.show(false)
     df.printSchema()
 

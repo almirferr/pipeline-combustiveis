@@ -1,5 +1,6 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
+from airflow.models import Variable
 
 print("*****************")
 print("Iniciando!!!")

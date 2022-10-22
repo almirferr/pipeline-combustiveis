@@ -21,9 +21,9 @@ if __name__ == "__main__":
     print("setting")
     
     spark.sparkContext.setLogLevel("WARN")
-    spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", aws_access_key_id)
-    spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", aws_secret_access_key)
-    spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.amazonaws.com")
+    spark.sparkContext.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
+    spark.sparkContext.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
+    spark.sparkContext.set("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com")
 
     print("reading")
     

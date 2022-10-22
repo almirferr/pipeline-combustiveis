@@ -9,6 +9,8 @@ SparkConf()
     .set('spark.hadoop.fs.s3a.aws.credentials.provider', 'com.amazonaws.auth.EnvironmentVariableCredentialsProvider')
     .set('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:2.7.3')
     .set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
+    .set("spark.shuffle.service.enabled", "false")
+    .set("spark.dynamicAllocation.enabled", "false")
 )
 
 # apply config

@@ -1,39 +1,20 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 
-# set conf
-conf = (
-SparkConf()
-    .set("spark.hadoop.fs.s3a.fast.upload", True)
-    .set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-    .set('spark.hadoop.fs.s3a.aws.credentials.provider', 'com.amazonaws.auth.EnvironmentVariableCredentialsProvider')
-    .set('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:2.7.3')
-    .set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
-    .set("spark.shuffle.service.enabled", "false")
-    .set("spark.dynamicAllocation.enabled", "false")
-)
-
-# apply config
-sc = SparkContext(conf=conf).getOrCreate()
+aws_access_key_id = Variable.get("aws_access_key_id")
+aws_secret_access_key = Variable.get("aws_secret_access_key")
 
 if __name__ == "__main__":
-
-    # init spark session
-    spark = SparkSession\
-            .builder\
-            .appName("Repartition Job")\
-            .getOrCreate()
-
+    spark = SparkSession.builder()
+          .master("local[1]")
+          .appName("SparkByExamples.com")
+          .getOrCreate()
+        
     spark.sparkContext.setLogLevel("WARN")
-    
-    sc=spark.sparkContext
-    sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
+    spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", aws_access_key_id)
+    spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", aws_secret_access_key)
+    spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.amazonaws.com")
 
-    print("*****************")
-    print("Iniciando!!!")
-    print("*****************")
-
-    
-    print("finalizado!")
-
-spark.stop()
+    df = spark.read.csv("s3a://dl-landing-zone-539445819059/titanic/titanic.csv")
+    df.show(false)
+    df.printSchema()

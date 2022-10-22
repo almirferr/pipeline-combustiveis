@@ -1,14 +1,12 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
-from airflow.models import Variable
 
 print("*****************")
 print("Iniciando!!!")
 print("*****************")
 
-aws_access_key_id = Variable.get("aws_access_key_id")
-aws_secret_access_key = Variable.get("aws_secret_access_key")
-
+aws_access_key_id = "AKIAYBEEQYFSDKNFEHG7"
+aws_secret_access_key = "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"
 
 print("********aws_access_key_id*********")
 print(aws_access_key_id)

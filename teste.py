@@ -12,7 +12,17 @@ print("********aws_access_key_id*********")
 print(aws_access_key_id)
 print("*****************")
 
+conf = SparkConf()
+conf.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
+conf.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
+conf.set("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com")
+
+# apply config
+sc = SparkContext(conf=conf).getOrCreate()
+
 if __name__ == "__main__":
+    
+    # init spark session
     spark = SparkSession\
             .builder\
             .appName("Repartition Job")\
@@ -21,9 +31,6 @@ if __name__ == "__main__":
     print("setting")
     
     spark.sparkContext.setLogLevel("WARN")
-    spark.sparkContext.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
-    spark.sparkContext.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
-    spark.sparkContext.set("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com")
 
     print("reading")
     

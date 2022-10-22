@@ -13,5 +13,18 @@ SparkConf()
 # apply config
 sc = SparkContext(conf=conf).getOrCreate()
 
+if __name__ == "__main__":
+
+    # init spark session
+    spark = SparkSession\
+            .builder\
+            .appName("Repartition Job")\
+            .getOrCreate()
+
+    spark.sparkContext.setLogLevel("WARN")
+
+    print("*****************")
+    print("Iniciando!!!")
+    print("*****************")
 
 print("finalizado!")

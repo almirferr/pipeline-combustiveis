@@ -32,10 +32,7 @@ if __name__ == "__main__":
     print("*****************")
     print("Iniciando!!!")
     print("*****************")
-  
 
-    
-    df.printSchema()
     
     print("finalizado!")
 

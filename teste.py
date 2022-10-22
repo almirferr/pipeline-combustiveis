@@ -19,11 +19,9 @@ conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s
 conf.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
 conf.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
 conf.set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
+conf.set("com.amazonaws.services.s3.enableV4", "true")
 
-
-#spark._jsc.hadoopConfiguration().set("com.amazonaws.services.s3.enableV4", "true")
-
-print("versao 1")
+print("versao 2")
 
 # apply config
 sc = SparkContext(conf=conf).getOrCreate()

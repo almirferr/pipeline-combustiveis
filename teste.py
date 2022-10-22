@@ -23,6 +23,9 @@ if __name__ == "__main__":
             .getOrCreate()
 
     spark.sparkContext.setLogLevel("WARN")
+    
+    sc=spark.sparkContext
+    sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 
     print("*****************")
     print("Iniciando!!!")

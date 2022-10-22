@@ -13,10 +13,11 @@ print(aws_access_key_id)
 print("*****************")
 
 if __name__ == "__main__":
-    spark = SparkSession.builder()\
-          .appName("SparkByExamples.com")\
-          .getOrCreate()
-        
+    spark = SparkSession\
+            .builder\
+            .appName("Repartition Job")\
+            .getOrCreate()
+    
     print("setting")
     
     spark.sparkContext.setLogLevel("WARN")

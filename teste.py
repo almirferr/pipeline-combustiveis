@@ -15,7 +15,6 @@ print("*****************")
 
 if __name__ == "__main__":
     spark = SparkSession.builder()
-          .master("local[1]")
           .appName("SparkByExamples.com")
           .getOrCreate()
         

@@ -32,14 +32,8 @@ if __name__ == "__main__":
     print("*****************")
     print("Iniciando!!!")
     print("*****************")
-    
-    df = (
-        spark
-        .read
-        .format("csv")
-        .options(header='true', inferSchema='true', delimiter=';')
-        .load("s3a://dl-landing-zone-539445819059/titanic/titanic.csv")
-    )
+  
+
     
     df.printSchema()
     

@@ -14,8 +14,8 @@ print(aws_access_key_id)
 print("*****************")
 
 if __name__ == "__main__":
-    spark = SparkSession.builder()
-          .appName("SparkByExamples.com")
+    spark = SparkSession.builder()\
+          .appName("SparkByExamples.com")\
           .getOrCreate()
         
     print("setting")

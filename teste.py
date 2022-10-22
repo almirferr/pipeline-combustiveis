@@ -23,6 +23,7 @@ conf.set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
 
 #spark._jsc.hadoopConfiguration().set("com.amazonaws.services.s3.enableV4", "true")
 
+print("versao 1")
 
 # apply config
 sc = SparkContext(conf=conf).getOrCreate()

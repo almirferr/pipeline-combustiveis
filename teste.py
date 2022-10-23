@@ -18,10 +18,10 @@ conf.set('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:2.7.3,org.apache.h
 conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
 conf.set("spark.hadoop.fs.s3a.access.key", aws_access_key_id)
 conf.set("spark.hadoop.fs.s3a.secret.key", aws_secret_access_key)
-conf.set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
-conf.set("com.amazonaws.services.s3.enableV4", "true")
+#conf.set("spark.hadoop.fs.s3a.endpoint", "s3.us-east-2.amazonaws.com")
+#conf.set("com.amazonaws.services.s3.enableV4", "true")
 
-print("versao 3")
+print("versao 4")
 
 # apply config
 sc = SparkContext(conf=conf).getOrCreate()
@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     print("reading")
     
-    df = spark.read.csv("s3a://dl-landing-zone-539445819059/titanic/titanic.csv")
+    df = spark.read.csv("s3a://almirbf-teste2/landing/titanic.csv")
 
     df.show(false)
     df.printSchema()

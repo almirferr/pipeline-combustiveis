@@ -28,7 +28,7 @@ with DAG(
     teste = KubernetesPodOperator(
           task_id="teste",
           name="pipeline-teste",
-          is_delete_operator_pod=True,
+          is_delete_operator_pod=False,
           namespace=SPARK_NAMESPACE,
           startup_timeout_seconds=120,
           pod_template_file=f"{DAGS_FOLDER_PATH}/pipeline-teste.yaml",

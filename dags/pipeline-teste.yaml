@@ -10,7 +10,7 @@ spec:
   mode: cluster
   image: "maylatt/spark-operator:3.1.1"
   imagePullPolicy: Always
-  mainApplicationFile: https://raw.githubusercontent.com/almirferr/pipeline-combustiveis/main/teste.py
+  mainApplicationFile: "https://raw.githubusercontent.com/almirferr/pipeline-combustiveis/main/teste.py"
   sparkVersion: "3.1.1"
   restartPolicy:
     type: Never

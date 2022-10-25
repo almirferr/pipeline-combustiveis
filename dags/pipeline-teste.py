@@ -16,7 +16,7 @@ DAGS_FOLDER_PATH = path.dirname(__file__)
 
 # [START instantiate_dag]
 with DAG(
-    dag_id='pipeline_teste2',
+    dag_id='pipeline_teste3',
     schedule_interval=None,
     start_date=datetime(2022, 10, 4),
     catchup=False,
@@ -27,7 +27,7 @@ with DAG(
 
     teste = KubernetesPodOperator(
           task_id="teste",
-          name="pipeline-teste2",
+          name="pipeline-teste3",
           is_delete_operator_pod=False,
           namespace=SPARK_NAMESPACE,
           startup_timeout_seconds=120,

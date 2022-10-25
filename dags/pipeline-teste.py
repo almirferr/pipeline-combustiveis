@@ -33,10 +33,7 @@ with DAG(
           startup_timeout_seconds=120,
           pod_template_file=f"{DAGS_FOLDER_PATH}/pipeline-teste.yaml",
           in_cluster=True,
-          get_logs=True,
-          env_vars = {
-            "SOURCE_URLS" :  Variable.get("combustiveis_source_urls")
-          }
+          get_logs=True
       )
 
     # [START task_sequence]

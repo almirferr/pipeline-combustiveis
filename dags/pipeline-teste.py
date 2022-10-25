@@ -31,7 +31,7 @@ with DAG(
           is_delete_operator_pod=False,
           namespace=SPARK_NAMESPACE,
           startup_timeout_seconds=120,
-          pod_template_file=f"{DAGS_FOLDER_PATH}/pipeline-teste.yaml",
+          pod_template_file=f"{DAGS_FOLDER_PATH}/pipeline-teste2.yaml",
           in_cluster=True,
           get_logs=True,
           env_vars = {

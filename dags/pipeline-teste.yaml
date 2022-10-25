@@ -18,10 +18,6 @@ spec:
     volumeMounts:
       - name: ivy
         mountPath: /tmp
-    secrets:
-      - name: "gcp-credentials"
-        path: "/mnt/secrets"
-        secretType: GCPServiceAccount
     cores: 1
     coreRequest: '100m'
     coreLimit: "500m"    
